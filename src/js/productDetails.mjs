@@ -25,16 +25,7 @@ export default async function productDetails(productId, selector) {
     
   }
 
-  function updateSuperscript() {
-    const superscript = document.querySelector('.superscript');
-    superscript.classList.remove('hidden');
-    const cart = JSON.parse(localStorage.getItem("cart"));
-    const cartQuantity = cart ? cart.products.length : 0;
-    if (superscript) {
-        superscript.textContent = `${cartQuantity}`;
-      }
-  }
-  
+  // updateSuperscript()
 
   async function addToCartHandler(e) {
     addProductToCart(product);
@@ -44,6 +35,16 @@ export default async function productDetails(productId, selector) {
   document
     .getElementById("addToCart")
     .addEventListener("click", addToCartHandler);
+}
+
+export function updateSuperscript() {
+  const superscript = document.querySelector('.superscript');
+  superscript.classList.remove('hidden');
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  const cartQuantity = cart ? cart.products.length : 0;
+  if (superscript) {
+      superscript.textContent = `${cartQuantity}`;
+    }
 }
 
 function productDetailsTemplate(product) {
