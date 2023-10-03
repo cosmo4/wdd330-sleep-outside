@@ -27,7 +27,7 @@ function cartItemTemplate(item) {
       <p class="cart-card__quantity">qty: 1</p>
       <p class="cart-card__price">$${item.FinalPrice}</p>
     </li>
-    <img class="delete-icon" src="/images/delete-bin-line.svg" alt="remove product"></img>
+    <img id="${item.Id}" class="delete-icon" src="/images/delete-bin-line.svg" alt="remove product"></img>
   </div>`;
 
   return newItem;
