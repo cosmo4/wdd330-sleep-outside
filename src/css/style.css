@@ -76,6 +76,7 @@ header {
 .logo--square > div {
   margin-top: -1.7em;
 }
+
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
@@ -105,9 +106,26 @@ button {
 
 .cart svg {
   width: 25px;
+  margin-right: 20px;
 }
 .cart:hover svg {
   fill: gray;
+}
+.cart a {
+  text-decoration: none;
+}
+.superscript {
+  font-size: 12px;
+  font-weight: bolder;
+  color: white;
+  border-radius: 9px;
+  background-color: #b04444;
+  padding: 3px 7px;
+  vertical-align: top;
+  margin-right: -49px;
+}
+.hidden {
+  display: none;
 }
 
 /* End cart icon styles */
