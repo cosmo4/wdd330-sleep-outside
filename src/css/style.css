@@ -220,3 +220,8 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+/* CSS to hide the cart-footer by default */
+.cart-footer.hide {
+  display: none;
+}
+
