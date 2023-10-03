@@ -130,6 +130,16 @@ button {
 
 /* End cart icon styles */
 
+/* Start cart delete icon styles */
+.cart-card-container {
+  display: flex;
+}
+
+.delete-icon {
+  width: 50px;
+}
+/* End cart delete icon styles */
+
 .mission {
   padding: 0 0.5em;
   /* margin: 0.5em 0; */
