@@ -1,8 +1,12 @@
 import { getLocalStorage } from './utils.mjs';
+import { updateSuperscript } from './productDetails.mjs';
 
 function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart');
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  const cartItems = getLocalStorage('cart');
+  // This calls the updateSuperscript function for the cart page 
+  cartItems ? updateSuperscript() : null
+  // This maps the array in the obect to display the products.
+  const htmlItems = cartItems ? cartItems.products.map((item) => cartItemTemplate(item)) : null;
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
 }
 
