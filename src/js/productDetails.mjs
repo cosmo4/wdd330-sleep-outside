@@ -22,10 +22,23 @@ export default async function productDetails(productId, selector) {
   function addProductToCart(product) {
     cart.products.push(product);
     setLocalStorage("cart", cart);
+    
   }
+
+  function updateSuperscript() {
+    const superscript = document.querySelector('.superscript');
+    superscript.classList.remove('hidden');
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const cartQuantity = cart ? cart.products.length : 0;
+    if (superscript) {
+        superscript.textContent = `${cartQuantity}`;
+      }
+  }
+  
 
   async function addToCartHandler(e) {
     addProductToCart(product);
+    updateSuperscript();
   }
 
   document
