@@ -1,3 +1,32 @@
+import { getLocalStorage } from './utils.mjs';
+
+function renderCartContents() {
+  const cartItems = getLocalStorage('so-cart');
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+}
+
+function cartItemTemplate(item) {
+  const newItem = `<li class="cart-card divider">
+  <a href="#" class="cart-card__image">
+    <img
+      src="${item.Image}"
+      alt="${item.Name}"
+    />
+  </a>
+  <a href="#">
+    <h2 class="card__name">${item.Name}</h2>
+  </a>
+  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__price">$${item.FinalPrice}</p>
+</li>`;
+
+  return newItem;
+}
+
+renderCartContents();
+
 document.addEventListener("DOMContentLoaded", function() {
  
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -31,24 +60,6 @@ function calculateTotal(cartItems) {
 }
 
 
-// import{setLocalStorage, getLocalStorage} from './utils.mjs';
-// import { findProductById } from './productData.mjs';
-// let cart = getLocalStorage("cart") || { products: [] };
-
-// function addCartItems(item){
-//   cart.products.add(item);
-
-//   setLocalStorage('cart', cart);
-// }
-
-// async function addToCartHandler(e) {
-//   const product = await findProductById(e.target.dataset.id);
-//   addCartItems(item);
-// }
-
-// document
-//   .getElementById("addToCart")
-//   .addEventListener("click", addToCartHandler);
 
 
 
@@ -69,31 +80,3 @@ function calculateTotal(cartItems) {
 
 
 
-// import { getLocalStorage } from './utils.mjs';
-
-// function renderCartContents() {
-//   const cartItems = getLocalStorage('so-cart');
-//   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-//   document.querySelector('.product-list').innerHTML = htmlItems.join('');
-// }
-
-// function cartItemTemplate(item) {
-//   const newItem = `<li class="cart-card divider">
-//   <a href="#" class="cart-card__image">
-//     <img
-//       src="${item.Image}"
-//       alt="${item.Name}"
-//     />
-//   </a>
-//   <a href="#">
-//     <h2 class="card__name">${item.Name}</h2>
-//   </a>
-//   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-//   <p class="cart-card__quantity">qty: 1</p>
-//   <p class="cart-card__price">$${item.FinalPrice}</p>
-// </li>`;
-
-//   return newItem;
-// }
-
-// renderCartContents();
