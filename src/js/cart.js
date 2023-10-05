@@ -35,9 +35,9 @@ function cartItemTemplate(item) {
 
 renderCartContents();
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
  
-  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
   const cartFooter = document.querySelector('.cart-footer');
 
