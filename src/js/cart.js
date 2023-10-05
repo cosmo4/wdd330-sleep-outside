@@ -39,15 +39,13 @@ document.addEventListener("DOMContentLoaded", function() {
  
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
-
   const cartFooter = document.querySelector('.cart-footer');
 
-
-  if (cartItems.length > 0) {
+  if (cartItems.products.length > 0) {
       cartFooter.classList.remove('hide');
 
      
-      const total = calculateTotal(cartItems);
+      const total = calculateTotal(cartItems.products);
 
       
       const totalHTML = `<span>$${total.toFixed(2)}</span>`;
