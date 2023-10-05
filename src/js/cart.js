@@ -34,3 +34,57 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+
+document.addEventListener("DOMContentLoaded", function() {
+ 
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+  const cartFooter = document.querySelector('.cart-footer');
+
+
+  if (cartItems.length > 0) {
+      cartFooter.classList.remove('hide');
+
+     
+      const total = calculateTotal(cartItems);
+
+      
+      const totalHTML = `<span>$${total.toFixed(2)}</span>`;
+
+      
+      const cartTotalElement = cartFooter.querySelector('.cart-total');
+      cartTotalElement.innerHTML += totalHTML;
+  }
+});
+
+
+function calculateTotal(cartItems) {
+  var total = 0;
+  for (var i = 0; i < cartItems.length; i++) {
+      total += cartItems[i].price;
+  }
+  return total;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
