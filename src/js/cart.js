@@ -10,29 +10,6 @@ function renderCartContents() {
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
 }
 
-function cartItemTemplate(item) {
-  const newItem = 
-  `<div class="cart-card-container">
-    <li class="cart-card divider">
-      <a href="#" class="cart-card__image">
-        <img
-          src="${item.Image}"
-          alt="${item.Name}"
-        />
-      </a>
-      <a href="#">
-        <h2 class="card__name">${item.Name}</h2>
-      </a>
-      <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-      <p class="cart-card__quantity">qty: 1</p>
-      <p class="cart-card__price">$${item.FinalPrice}</p>
-    </li>
-    <img class="delete-icon" src="/images/delete-bin-line.svg" alt="remove product"></img>
-  </div>`;
-
-  return newItem;
-}
-
 renderCartContents();
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,14 +33,51 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-
 function calculateTotal(cartItems) {
-  var total = 0;
-  for (var i = 0; i < cartItems.length; i++) {
-      total += cartItems[i].price;
+  let total = 0;
+  for (let i = 0; i < cartItems.length; i++) {
+    const product = cartItems[i];
+    if (product.products && Array.isArray(product.products)) {
+      total += calculateTotal(product.products);
+    } else if (typeof product.FinalPrice === 'number') {
+      total += product.FinalPrice;
+    } else if (typeof product.FinalPrice === 'string') {
+      total += parseFloat(product.FinalPrice);
+    }
   }
   return total;
 }
+
+function cartItemTemplate(item) {
+  const newItem = 
+  `<div class="cart-card-container">
+    <li class="cart-card divider">
+      <a href="#" class="cart-card__image">
+        <img
+          src="${item.Image}"
+          alt="${item.Name}"
+        />
+      </a>
+      <a href="#">
+        <h2 class="card__name">${item.Name}</h2>
+      </a>
+      <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+      <p class="cart-card__quantity">qty: 1</p>
+      <p class="cart-card__price">$${item.FinalPrice}</p>
+    </li>
+    <img class="delete-icon" src="/images/delete-bin-line.svg" alt="remove product"></img>
+  </div>`;
+
+  return newItem;
+}
+
+
+
+
+
+
+
+
 
 
 
