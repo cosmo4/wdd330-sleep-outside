@@ -1,5 +1,7 @@
 import { getLocalStorage } from './utils.mjs';
 import { updateSuperscript } from './productDetails.mjs';
+import { renderHeaderFooter } from './utils.mjs';
+renderHeaderFooter();
 
 function renderCartContents() {
   const cartItems = JSON.parse(localStorage.getItem('cart')) || { products: [] };
