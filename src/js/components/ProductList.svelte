@@ -1,8 +1,6 @@
-<p>My new product list componenent!</p>
-
-
 <script>
 import { getData } from "../productData.mjs";
+
 
 // this is how we make a prop in svelte
 export let category;

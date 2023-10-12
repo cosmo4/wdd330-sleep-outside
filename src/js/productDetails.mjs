@@ -1,6 +1,7 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 import { doc } from "prettier";
+import { cartCount } from "./stores.mjs";
 
 let productDataStorage = {};
 
@@ -20,8 +21,14 @@ export default async function productDetails(productId, selector) {
   let cart = getLocalStorage("cart") || { products: [] };
 
   function addProductToCart(product) {
-    cart.products.push(product);
+    const cartItems = cart.products;
+    cartItems.push(product);
     setLocalStorage("cart", cart);
+    cartCount.set(cartItems.length);
+    const superscript = document.querySelector('.superscript');
+    if (cart.products.length > 0){
+      superscript.classList.remove('hidden');
+    }
     
   }
 
@@ -30,6 +37,7 @@ export default async function productDetails(productId, selector) {
   async function addToCartHandler(e) {
     addProductToCart(product);
     updateSuperscript();
+    
   }
 
   document
@@ -38,13 +46,7 @@ export default async function productDetails(productId, selector) {
 }
 
 export function updateSuperscript() {
-  const superscript = document.querySelector('.superscript');
-  superscript.classList.remove('hidden');
-  const cart = JSON.parse(localStorage.getItem("cart"));
-  const cartQuantity = cart ? cart.products.length : 0;
-  if (superscript) {
-      superscript.textContent = `${cartQuantity}`;
-    }
+  
 }
 
 function productDetailsTemplate(product) {
