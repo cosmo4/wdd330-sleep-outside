@@ -2,12 +2,15 @@ import { getLocalStorage } from './utils.mjs';
 import { updateSuperscript } from './productDetails.mjs';
 
 function renderCartContents() {
-  const cartItems = getLocalStorage('cart');
-  // This calls the updateSuperscript function for the cart page 
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || { products: [] };
+  const cartContainer = document.querySelector('.product-list');
   cartItems ? updateSuperscript() : null
-  // This maps the array in the obect to display the products.
-  const htmlItems = cartItems ? cartItems.products.map((item) => cartItemTemplate(item)) : null;
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  if (cartItems.products.length > 0) {
+    const htmlItems = cartItems.products.map((item) => cartItemTemplate(item));
+    cartContainer.innerHTML = htmlItems.join('');
+  } else {
+    cartContainer.innerHTML = ''; // Clear the cart container if the cart is empty
+  }
 }
 
 renderCartContents();
@@ -47,10 +50,9 @@ function calculateTotal(cartItems) {
   }
   return total;
 }
-
 function cartItemTemplate(item) {
-  const newItem = 
-  `<div class="cart-card-container">
+  const newItem = `
+  <div class="cart-card-container">
     <li class="cart-card divider">
       <a href="#" class="cart-card__image">
         <img
@@ -65,11 +67,48 @@ function cartItemTemplate(item) {
       <p class="cart-card__quantity">qty: 1</p>
       <p class="cart-card__price">$${item.FinalPrice}</p>
     </li>
-    <img class="delete-icon" src="/images/delete-bin-line.svg" alt="remove product"></img>
+    <img class="delete-icon" src="/images/delete-bin-line.svg" alt="remove product" data-id="${item.Id}">
   </div>`;
-
   return newItem;
 }
+
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('delete-icon')) {
+    const productId = event.target.getAttribute('data-id');
+    console.log('Delete icon clicked for product ID:', productId);
+    removeFromLocalStorage(productId);
+    renderCartContents();
+    updateCartTotal();
+  }
+});
+
+function removeFromLocalStorage(productId) {
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || { products: [] };
+
+  cart.products = cart.products.filter(item => item.Id !== productId);
+
+ 
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  console.log('Item removed from local storage. Updated cart:', cart);
+
+  return cart;
+}
+function updateCartTotal() {
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || { products: [] };
+  if (cartItems.products.length > 0) {
+    const total = calculateTotal(cartItems.products);
+    const cartTotalElement = document.querySelector('.cart-total');
+    cartTotalElement.innerHTML = `<span>$${total.toFixed(2)}</span>`;
+  } else {
+    const cartTotalElement = document.querySelector('.cart-total');
+    cartTotalElement.innerHTML = '';
+  }
+}
+
+
+
 
 
 
