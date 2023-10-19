@@ -50,6 +50,7 @@ function calculateTotal(cartItems) {
       total += parseFloat(product.FinalPrice);
     }
   }
+  console.log('Total cost calculated:', total);
   return total;
 }
 function cartItemTemplate(item) {
@@ -66,7 +67,7 @@ function cartItemTemplate(item) {
         <h2 class="card__name">${item.Name}</h2>
       </a>
       <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-      <p class="cart-card__quantity">qty: 1</p>
+      <input type="number" class="cart-card__quantity" value="${item.Quantity}" data-id="${item.Id}" min="1">
       <p class="cart-card__price">$${item.FinalPrice}</p>
     </li>
     <img class="delete-icon" src="/images/delete-bin-line.svg" alt="remove product" data-id="${item.Id}">
@@ -97,47 +98,43 @@ function removeFromLocalStorage(productId) {
 
   return cart;
 }
+
 function updateCartTotal() {
   const cartItems = JSON.parse(localStorage.getItem('cart')) || { products: [] };
-  if (cartItems.products.length > 0) {
-    const total = calculateTotal(cartItems.products);
-    const cartTotalElement = document.querySelector('.cart-total');
-    cartTotalElement.innerHTML = `<span>$${total.toFixed(2)}</span>`;
+  let total = 0;
+
+  for (const item of cartItems.products) {
+    if (typeof item.FinalPrice === 'number' && !isNaN(item.FinalPrice) && typeof item.Quantity === 'number' && !isNaN(item.Quantity)) {
+      const subtotal = item.Quantity * item.FinalPrice;
+      total += subtotal;
+    }
+  }
+  const cartTotalElement = document.querySelector('.cart-total');
+
+  if (total > 0) {
+    cartTotalElement.innerHTML = `<span>Total: $${total.toFixed(2)}</span>`;
   } else {
-    const cartTotalElement = document.querySelector('.cart-total');
-    cartTotalElement.innerHTML = '';
+    cartTotalElement.innerHTML = ''; 
   }
 }
 
+document.addEventListener('input', function(event) {
+  if (event.target.classList.contains('cart-card__quantity')) {
+    const productId = event.target.getAttribute('data-id');
+    const newQuantity = parseInt(event.target.value, 10);
+    updateQuantityInLocalStorage(productId, newQuantity);
+    event.target.value = newQuantity;
+    updateCartTotal();
+  }
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function updateQuantityInLocalStorage(productId, newQuantity) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || { products: [] };
+  cart.products.forEach(item => {
+    if (item.Id === productId) {
+      item.Quantity = newQuantity;
+    }
+  });
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
 
