@@ -76,6 +76,13 @@ header {
 .logo--square > div {
   margin-top: -1.7em;
 }
+#iconWrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+#iconWrapper img{
+  width: 50%;
+}
 
 /* utility classes */
 .highlight {
