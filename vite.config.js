@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+// eslint-disable-next-line import/no-unresolved
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
