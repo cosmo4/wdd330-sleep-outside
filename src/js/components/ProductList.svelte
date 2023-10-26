@@ -16,18 +16,16 @@ let promise = getData(category);
         {:then products}
         <ul class="product-list">
         {#each products as product}
-        {#if product.Id !== "989CG" && product.Id !== "880RT"}
+   
           <li class="product-card">
             <a href="product_pages/index.html?product={product.Id}">
-              <img
-                src= {product.Image}
-              />
+              <img src= {product.Image} alt=""/>
               <h3 class="card__brand">{product.Brand.Name}</h3>
               <h2 class="card__name">{product.NameWithoutBrand}</h2>
               <p class="product-card__price">${product.FinalPrice}</p></a
             >
           </li>
-          {/if}
+   
           {/each}
         </ul>
         {/await}
