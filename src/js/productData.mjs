@@ -4,7 +4,7 @@ function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error("Bad Response");
+    throw new Error('Bad Response');
   }
 }
 
@@ -16,6 +16,6 @@ export async function getData(category) {
 
 export async function findProductById(id) {
   const response = await fetch(baseURL + `product/${id}`);
-  const products = await getData();
+  const products = await getData(response);
   return products.find((item) => item.Id === id);
 }

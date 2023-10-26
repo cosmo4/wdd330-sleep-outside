@@ -1,7 +1,7 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { findProductById } from "./productData.mjs";
-import { doc } from "prettier";
-import { cartCount } from "./stores.mjs";
+import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { findProductById } from './productData.mjs';
+import { doc } from 'prettier';
+import { cartCount } from './stores.mjs';
 
 let productDataStorage = {};
 
@@ -11,19 +11,19 @@ export default async function productDetails(productId, selector) {
 
   // once we have the product details we can render out the HTML
   const el = document.querySelector(selector);
-  el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
+  el.insertAdjacentHTML('afterBegin', productDetailsTemplate(product));
 
   // we need the title of the page to match the name of the product
   document.title = `Sleep Outside | ${product.Name}`;
 
   // add a listener to Add to Cart button
 
-  let cart = getLocalStorage("cart") || { products: [] };
+  let cart = getLocalStorage('cart') || { products: [] };
 
-  function addProductToCart(product) {
+  function addProductToCart() {
     const cartItems = cart.products;
     cartItems.push(product);
-    setLocalStorage("cart", cart);
+    setLocalStorage('cart', cart);
     cartCount.set(cartItems.length);
     const superscript = document.querySelector('.superscript');
     if (cart.products.length > 0){
@@ -34,15 +34,15 @@ export default async function productDetails(productId, selector) {
 
   // updateSuperscript()
 
-  async function addToCartHandler(e) {
+  async function addToCartHandler() {
     addProductToCart(product);
     updateSuperscript();
     
   }
 
   document
-    .getElementById("addToCart")
-    .addEventListener("click", addToCartHandler);
+    .getElementById('addToCart')
+    .addEventListener('click', addToCartHandler);
 }
 
 export function updateSuperscript() {

@@ -6,7 +6,8 @@ new ProductList({
     props: { category: 'tents' },
 });
 
-console.log("Test Netlify main.js linking");
+// eslint-disable-next-line no-console
+console.log('Test Netlify main.js linking');
 
 document.addEventListener('DOMContentLoaded', function () {
     const superscript = document.querySelector('.superscript');
