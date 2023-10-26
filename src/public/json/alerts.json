@@ -1,0 +1,9 @@
+{
+  "alerts": [
+    {
+      "message": "this is only a test",
+      "background": "lightgreen",
+      "color": "black"
+    }
+  ]
+}
