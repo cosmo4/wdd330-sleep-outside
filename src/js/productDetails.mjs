@@ -1,7 +1,7 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { findProductById } from "./productData.mjs";
-import { doc } from "prettier";
-import { cartCount } from "./stores.mjs";
+import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { findProductById, getProductsByCategory } from './externalServices.mjs';
+import { doc } from 'prettier';
+import { cartCount } from './stores.mjs';
 
 
 let productDataStorage = {};
@@ -14,14 +14,14 @@ export default async function productDetails(productId, selector) {
 
   // once we have the product details we can render out the HTML
   const el = document.querySelector(selector);
-  el.insertAdjacentHTML("afterBegin", productDetailsTemplate(product));
+  el.insertAdjacentHTML('afterBegin', productDetailsTemplate(product));
 
   // we need the title of the page to match the name of the product
   document.title = `Sleep Outside | ${product.Name}`;
 
   // add a listener to Add to Cart button
 
-  let cart = getLocalStorage("cart") || { products: [] };
+  let cart = getLocalStorage('cart') || { products: [] };
 
   function addProductToCart(product) {
     const cartItems = cart.products;
@@ -34,7 +34,7 @@ export default async function productDetails(productId, selector) {
       cartItems.push(product);
     }
   
-    setLocalStorage("cart", cart);
+    setLocalStorage('cart', cart);
     cartCount.set(cartItems.length);
     const superscript = document.querySelector('.superscript');
     if (cart.products.length > 0) {
@@ -53,8 +53,8 @@ export default async function productDetails(productId, selector) {
   }
 
   document
-    .getElementById("addToCart")
-    .addEventListener("click", addToCartHandler);
+    .getElementById('addToCart')
+    .addEventListener('click', addToCartHandler);
 }
 
 export function updateSuperscript() {
@@ -110,7 +110,7 @@ async function fetchProductsFromAPI() {
 
     const productsData = await Promise.all(
       categories.map(async (category) => {
-        const data = await getData(category);
+        const data = await getProductsByCategory(category);
         return data;
       })
     );
@@ -138,25 +138,25 @@ function displaySortedProducts(sortedProducts) {
 function productDetailsTemplate(product) {
   // The ColorName can only be accessed by specifying which item in the
   // array Colors you want to look in. This is in case there is more than one item
-  const htmlTemplate = `<h3 id="productName">${product.Name}</h3>
+  const htmlTemplate = `<h3 id='productName'>${product.Name}</h3>
 
-    <h2 class="divider" id="productNameWithoutBrand">${product.NameWithoutBrand}</h2>
+    <h2 class='divider' id='productNameWithoutBrand'>${product.NameWithoutBrand}</h2>
 
     <img
-      id="productImage"
-      class="divider"
-      src="${product.Image}"
-      alt="Image of ${product.Name}"
+      id='productImage'
+      class='divider'
+      src='${product.Image}'
+      alt='Image of ${product.Name}'
     />
 
-    <p class="product-card__price" id="productFinalPrice">$${product.FinalPrice}</p>
+    <p class='product-card__price' id='productFinalPrice'>$${product.FinalPrice}</p>
 
-    <p class="product__color" id="productColorName">${product.Colors[0].ColorName}</p>
+    <p class='product__color' id='productColorName'>${product.Colors[0].ColorName}</p>
 
-    <p class="product__description" id="productDescriptionHtmlSimple">${product.DescriptionHtmlSimple}</p>
+    <p class='product__description' id='productDescriptionHtmlSimple'>${product.DescriptionHtmlSimple}</p>
 
-    <div class="product-detail__add">
-      <button title="Add item to cart" id="addToCart" data-id="">Add to Cart</button>
+    <div class='product-detail__add'>
+      <button title='Add item to cart' id='addToCart' data-id=''>Add to Cart</button>
     </div>`;
   return htmlTemplate;
 }

@@ -1,6 +1,7 @@
 import MainFooter from './components/MainFooter.svelte';
 import MainHeader from './components/MainHeader.svelte';
 import WelcomeModal from './components/WelcomeModal.svelte';
+import AlertMessage from './components/AlertMessage.svelte';
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -53,4 +54,30 @@ export function getCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart'));
   const cartQuantity = cart ? cart.products.length : 0;
   return cartQuantity;
+}
+
+export function formDataToJSON(formElement) {
+  const formData = new FormData(formElement),
+    convertedJSON = {};
+
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
+
+export function alertMessage(message, scroll = true, duration = 7000) {
+  const alert = new AlertMessage({
+    target: document.querySelector('body'),
+    anchor: document.querySelector('main'),
+    props: {
+      message,
+    }
+  });
+  if (scroll) window.scrollTo(0,0);
+
+  setTimeout(function () {
+    alert.$destroy();
+  }, duration)
 }
