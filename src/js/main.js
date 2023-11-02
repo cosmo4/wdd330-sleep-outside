@@ -33,12 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
   
       const emailInput = newsletterForm.querySelector('input[name="email"]').value;
   
-      // Here, you can perform additional validation of the email address if needed.
-  
-      // Display the success message.
       successMessage.style.display = 'block';
   
-      // Refresh the form after a delay (1.5 seconds in this example).
       setTimeout(() => {
         newsletterForm.reset();
       }, 2500);
