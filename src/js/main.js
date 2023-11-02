@@ -1,13 +1,12 @@
 import ProductList from './components/ProductList.svelte'
-import { renderHeaderFooter } from './utils.mjs';
+import { renderHeaderFooter, showWelcomeModal } from './utils.mjs';
 import { updateSuperscript } from './productDetails.mjs';
 renderHeaderFooter();
+showWelcomeModal();
 new ProductList({
     target: document.querySelector('.products'),
     props: { category: 'tents' },
 });
-
-console.log("Test Netlify main.js linking");
 
 document.addEventListener('DOMContentLoaded', function () {
     const superscript = document.querySelector('.superscript');
