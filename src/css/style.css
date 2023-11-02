@@ -266,4 +266,7 @@ footer {
 .cart-footer.hide {
   display: none;
 }
-
+#newsletter-form button{
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
