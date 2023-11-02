@@ -91,6 +91,31 @@ header {
   width: 50%;
 }
 
+.checkout-form {
+  width: 500px;
+  margin: 0 auto;
+}
+.checkout-form fieldset {
+  margin: 20px 0;
+}
+.shipping-info-form, .payment-info-form {
+  padding: 20px;
+}
+.shipping-info-form input{
+  width: 100%;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.payment-info-form input{
+  width: 100%;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.payment-info-form label {
+  margin-bottom: 15px;
+}
+
+
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);

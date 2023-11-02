@@ -98,7 +98,7 @@
   }
 </script>
 
-<form name="checkout" on:submit|preventDefault={handleSubmit}>
+<form name="checkout" on:submit|preventDefault={handleSubmit} id="checkoutForm">
   <fieldset>
     <legend>Shipping</legend>
     <div class="shipping-info-form">
@@ -159,3 +159,7 @@
 
   <button type="submit" id="checkout-button">Checkout</button>
 </form>
+
+<style>
+
+</style>
