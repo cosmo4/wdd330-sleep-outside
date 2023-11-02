@@ -3,6 +3,7 @@ import { findProductById } from "./productData.mjs";
 import { doc } from "prettier";
 import { cartCount } from "./stores.mjs";
 
+
 let productDataStorage = {};
 
 export default async function productDetails(productId, selector) {
@@ -22,15 +23,24 @@ export default async function productDetails(productId, selector) {
 
   function addProductToCart(product) {
     const cartItems = cart.products;
-    cartItems.push(product);
+    const existingItemIndex = cartItems.findIndex(item => item.Id === product.Id);
+  
+    if (existingItemIndex !== -1) {
+      cartItems[existingItemIndex].Quantity += 1;
+    } else {
+      product.Quantity = 1;
+      cartItems.push(product);
+    }
+  
     setLocalStorage("cart", cart);
     cartCount.set(cartItems.length);
     const superscript = document.querySelector('.superscript');
-    if (cart.products.length > 0){
+    if (cart.products.length > 0) {
       superscript.classList.remove('hidden');
     }
-    
   }
+  
+  
 
   // updateSuperscript()
 
@@ -46,8 +56,21 @@ export default async function productDetails(productId, selector) {
 }
 
 export function updateSuperscript() {
-  
+  const cart = getLocalStorage('cart') || { products: [] };
+  const superscript = document.querySelector('.superscript');
+
+  const totalItems = cart.products.reduce((total, item) => total + item.Quantity, 0);
+
+  if (totalItems > 0) {
+    superscript.textContent = totalItems;
+    superscript.classList.remove('hidden');
+  } else {
+    superscript.textContent = '';
+    superscript.classList.add('hidden');
+  }
 }
+
+
 
 function productDetailsTemplate(product) {
   // The ColorName can only be accessed by specifying which item in the

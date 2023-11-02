@@ -117,6 +117,7 @@ function updateCartTotal() {
   } else {
     cartTotalElement.innerHTML = ''; 
   }
+  
 }
 
 document.addEventListener('input', function(event) {
@@ -139,5 +140,8 @@ function updateQuantityInLocalStorage(productId, newQuantity) {
   });
   localStorage.setItem('cart', JSON.stringify(cart));
 }
-// updateCartTotal()
+
+
+
+
 
