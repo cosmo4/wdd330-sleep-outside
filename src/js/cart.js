@@ -51,7 +51,6 @@ function calculateTotal(cartItems) {
       total += parseFloat(product.FinalPrice);
     }
   }
-  console.log('Total cost calculated:', total);
   return total;
 }
 function cartItemTemplate(item) {

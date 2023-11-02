@@ -1,5 +1,6 @@
 import { renderHeaderFooter, getParam} from './utils.mjs';
-import { getData } from './productData.mjs';
+import { getProductsByCategory } from './externalServices.mjs';
+import ProductList from './components/ProductList.svelte';
 
 renderHeaderFooter();
 const category = getParam('category')
