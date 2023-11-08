@@ -11,6 +11,17 @@
     } else {
         isOpen = false;
     }
+    function goToRegistrationForm() {
+    window.location.href = '../Register/index.html';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const registerButton = document.querySelector('.register-button');
+    if (registerButton) {
+      registerButton.addEventListener('click', goToRegistrationForm);
+    }
+  });
+
   </script>
   
   {#if isOpen}
