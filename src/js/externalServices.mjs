@@ -44,3 +44,33 @@ export async function checkout(payload) {
   };
   return await fetch(baseURL + 'checkout/', options).then(convertToJson);
 }
+
+export async function loginRequest(creds){
+  try{
+    const options =  {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(creds),
+    };
+    const response = await fetch(baseURL + 'login', options).then(convertToJson);
+    if(!response.ok){
+      throw new Error('Login failed');
+    }
+    return response.accessToken;
+  } catch(error){
+    console.error('Login request error', error);
+  }
+}
+export async function getOrders(token){
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+
+    },
+  };
+  const response = await fetch(baseURL + "orders", options).then(convertToJson);
+  return response;
+}
