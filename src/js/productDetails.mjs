@@ -145,7 +145,8 @@ function productDetailsTemplate(product) {
     <img
       id='productImage'
       class='divider'
-      src='${product.Image}'
+      src='${product.Images.PrimaryMedium}'
+      srcset='${product.Images.PrimaryMedium} 500w, ${product.Images.PrimaryExtraLarge}'
       alt='Image of ${product.Name}'
     />
 
