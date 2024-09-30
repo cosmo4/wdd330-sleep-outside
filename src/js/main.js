@@ -1,12 +1,15 @@
-import ProductList from './components/ProductList.svelte'
+import ProductList from './components/ProductList.svelte';
 import { renderHeaderFooter, showWelcomeModal } from './utils.mjs';
 import { updateSuperscript } from './productDetails.mjs';
+
 renderHeaderFooter();
 showWelcomeModal();
+
 new ProductList({
     target: document.querySelector('.products'),
     props: { category: 'tents' },
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const superscript = document.querySelector('.superscript');
@@ -19,8 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             superscript.textContent = `${cartQuantity}`;
         }
     }
-updateSuperscript();
-    
+    updateSuperscript();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -28,16 +30,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const successMessage = document.getElementById('success-message');
   
     newsletterForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+        e.preventDefault();
   
-      const emailInput = newsletterForm.querySelector('input[name="email"]').value;
+        const emailInput = newsletterForm.querySelector('input[name="email"]').value;
   
-      successMessage.style.display = 'block';
+        successMessage.style.display = 'block';
   
-      setTimeout(() => {
-        newsletterForm.reset();
-      }, 2500);
+        setTimeout(() => {
+            newsletterForm.reset();
+        }, 2500);
     });
-  });
-  
-  
+});

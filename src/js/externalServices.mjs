@@ -23,9 +23,13 @@ async function convertToJson(res) {
 }
 
 export async function getProductsByCategory(category) {
-  const response = await fetch(baseURL + `products/search/${category}`);
-  const data = await convertToJson(response);
-  return data.Result;
+  const response = await fetch(`/api/products/search/${category}`);
+
+  if (!response.ok) {
+      throw new Error('Failed to fetch products');
+  }
+
+  return await response.json();
 }
 
 export async function findProductById(id) {

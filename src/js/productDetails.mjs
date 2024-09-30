@@ -74,7 +74,7 @@ export function updateSuperscript() {
 
 // sorting start
 document.addEventListener('DOMContentLoaded', async function () {
-  const sortProductsDropdown = document.getElementById('sortProducts');
+  const sortProductsDropdown = document.getElementById('#sortProducts');
   await fetchProductsFromAPI();
 
   sortProductsDropdown.addEventListener('change', function () {
