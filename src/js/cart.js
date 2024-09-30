@@ -11,7 +11,7 @@ function renderCartContents() {
     const htmlItems = cartItems.products.map((item) => cartItemTemplate(item));
     cartContainer.innerHTML = htmlItems.join('');
   } else {
-    cartContainer.innerHTML = ''; // Clear the cart container if the cart is empty
+    cartContainer.innerHTML = ''; 
   }
 }
 

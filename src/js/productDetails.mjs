@@ -129,10 +129,6 @@ function displayProducts(products) {
 
 function displaySortedProducts(sortedProducts) {
 }
-//sorting end
-
-// product comments start
-
 
 
 function productDetailsTemplate(product) {
